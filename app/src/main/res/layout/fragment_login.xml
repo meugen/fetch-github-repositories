@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="@dimen/login_vertical_space"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/vertical_space_in_center"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/login_horizontal_edges_space"
+        android:id="@+id/left_edge_guideline"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/login_horizontal_edges_space"
+        android:id="@+id/right_edge_guideline"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/left_edge_guideline"
+        app:layout_constraintRight_toRightOf="@id/right_edge_guideline"
+        app:layout_constraintBottom_toTopOf="@id/vertical_space_in_center">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_hint_username"
+            android:id="@+id/edit_username"
+            android:inputType="textEmailAddress"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/left_edge_guideline"
+        app:layout_constraintRight_toRightOf="@id/right_edge_guideline"
+        app:layout_constraintTop_toBottomOf="@id/vertical_space_in_center"
+        android:id="@+id/password_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/login_hint_password"
+            android:id="@+id/edit_password"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/left_edge_guideline"
+        app:layout_constraintRight_toRightOf="@id/right_edge_guideline"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/password_container"
+        android:text="@string/login_button"
+        android:id="@+id/login_button"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
