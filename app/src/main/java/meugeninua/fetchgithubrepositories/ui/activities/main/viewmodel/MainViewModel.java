@@ -5,7 +5,7 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import meugeninua.fetchgithubrepositories.model.entities.GithubRepository;
+import meugeninua.fetchgithubrepositories.model.http.entities.GithubRepository;
 import meugeninua.fetchgithubrepositories.ui.di.MainComponent;
 import meugeninua.fetchgithubrepositories.ui.di.ReposComponent;
 

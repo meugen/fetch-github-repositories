@@ -5,7 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 
 import androidx.lifecycle.ViewModelProvider;
-import meugeninua.fetchgithubrepositories.model.services.GithubService;
+import meugeninua.fetchgithubrepositories.model.http.services.GithubService;
 import okhttp3.OkHttpClient;
 
 public interface AppComponent {

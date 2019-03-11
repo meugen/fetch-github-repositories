@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import meugeninua.fetchgithubrepositories.BuildConfig;
 import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.app.di.impls.conf.ConfigurationUtils;
-import meugeninua.fetchgithubrepositories.model.services.GithubService;
+import meugeninua.fetchgithubrepositories.model.http.services.GithubService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
