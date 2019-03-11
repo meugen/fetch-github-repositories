@@ -16,7 +16,8 @@ buildscript {
 
 ext.versions = [
         'material': '1.0.0',
-        'retrofit': '2.5.0'
+        'retrofit': '2.5.0',
+        'okhttp': '3.12.0'
 ]
 ext.versions.androidx = [
         'appcompat': '1.0.2',
