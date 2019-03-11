@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 
+def githubProps = new Properties()
+file('github.properties').withInputStream { githubProps.load(it) }
+def githubClientId = githubProps.getProperty("github.client_id")
+def githubClientSecret = githubProps.getProperty("github.client_secret")
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -9,6 +14,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'GITHUB_API_URL', '"https://api.github.com"'
+        buildConfigField 'String', 'GITHUB_CLIENT_ID', "\"$githubClientId\""
+        buildConfigField 'String', 'GITHUB_CLIENT_SECRET', "\"$githubClientSecret\""
     }
     buildTypes {
         release {
@@ -19,11 +28,14 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation "androidx.appcompat:appcompat:${versions.androidx.appcompat}"
+    implementation "androidx.constraintlayout:constraintlayout:${versions.androidx.constraintlayout}"
+    implementation "androidx.lifecycle:lifecycle-extensions:${versions.androidx.lifecycle}"
 
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation "com.google.android.material:material:${versions.material}"
+
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
