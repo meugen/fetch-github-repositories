@@ -3,7 +3,7 @@ package meugeninua.fetchgithubrepositories.ui.di;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
-import meugeninua.fetchgithubrepositories.model.http.entities.GithubRepository;
+import meugeninua.fetchgithubrepositories.model.http.entities.ReposEntity;
 
 public interface ReposComponent extends ActivityComponent {
 
@@ -11,6 +11,6 @@ public interface ReposComponent extends ActivityComponent {
 
     interface GithubReposProvider {
 
-        LiveData<List<GithubRepository>> getGithubRepositories();
+        LiveData<List<ReposEntity>> getGithubRepositories();
     }
 }

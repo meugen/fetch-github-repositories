@@ -6,11 +6,16 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.lang.ref.WeakReference;
+import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import androidx.lifecycle.ViewModelProvider;
 import meugeninua.fetchgithubrepositories.BuildConfig;
 import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.app.di.impls.conf.ConfigurationUtils;
+import meugeninua.fetchgithubrepositories.app.di.impls.json.DateAdapter;
+import meugeninua.fetchgithubrepositories.model.Repository;
 import meugeninua.fetchgithubrepositories.model.http.services.GithubService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -23,6 +28,8 @@ public class AppComponentImpl implements AppComponent {
     private Gson gson;
     private GithubService githubService;
     private OkHttpClient httpClient;
+    private Repository repository;
+    private ExecutorService executorService;
 
     public AppComponentImpl(final Application app) {
         this.appRef = new WeakReference<>(app);
@@ -44,7 +51,9 @@ public class AppComponentImpl implements AppComponent {
     @Override
     public Gson provideGson() {
         if (gson == null) {
-            gson = new GsonBuilder().create();
+            gson = new GsonBuilder()
+                    .registerTypeAdapter(Date.class, new DateAdapter())
+                    .create();
         }
         return gson;
     }
@@ -69,5 +78,21 @@ public class AppComponentImpl implements AppComponent {
                     .build().create(GithubService.class);
         }
         return githubService;
+    }
+
+    @Override
+    public Repository provideRepository() {
+        if (repository == null) {
+            repository = new Repository(provideGithubService());
+        }
+        return repository;
+    }
+
+    @Override
+    public ExecutorService provideExecutorService() {
+        if (executorService == null) {
+            executorService = Executors.newFixedThreadPool(2);
+        }
+        return executorService;
     }
 }
