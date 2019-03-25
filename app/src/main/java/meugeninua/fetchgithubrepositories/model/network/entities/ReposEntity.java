@@ -1,4 +1,4 @@
-package meugeninua.fetchgithubrepositories.model.http.entities;
+package meugeninua.fetchgithubrepositories.model.network.entities;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -16,7 +16,9 @@ import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.app.di.impls.conf.ConfigurationUtils;
 import meugeninua.fetchgithubrepositories.app.di.impls.json.DateAdapter;
 import meugeninua.fetchgithubrepositories.model.Repository;
-import meugeninua.fetchgithubrepositories.model.http.services.GithubService;
+import meugeninua.fetchgithubrepositories.model.factory.UseCaseFactory;
+import meugeninua.fetchgithubrepositories.model.factory.impls.UseCaseFactoryImpl;
+import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -30,6 +32,7 @@ public class AppComponentImpl implements AppComponent {
     private OkHttpClient httpClient;
     private Repository repository;
     private ExecutorService executorService;
+    private UseCaseFactory useCaseFactory;
 
     public AppComponentImpl(final Application app) {
         this.appRef = new WeakReference<>(app);
@@ -94,5 +97,13 @@ public class AppComponentImpl implements AppComponent {
             executorService = Executors.newFixedThreadPool(2);
         }
         return executorService;
+    }
+
+    @Override
+    public UseCaseFactory provideUseCaseFactory() {
+        if (useCaseFactory == null) {
+            useCaseFactory = new UseCaseFactoryImpl(provideGithubService());
+        }
+        return useCaseFactory;
     }
 }

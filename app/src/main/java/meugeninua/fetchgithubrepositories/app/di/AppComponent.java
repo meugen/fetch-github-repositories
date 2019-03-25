@@ -8,7 +8,8 @@ import java.util.concurrent.ExecutorService;
 
 import androidx.lifecycle.ViewModelProvider;
 import meugeninua.fetchgithubrepositories.model.Repository;
-import meugeninua.fetchgithubrepositories.model.http.services.GithubService;
+import meugeninua.fetchgithubrepositories.model.factory.UseCaseFactory;
+import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
 import okhttp3.OkHttpClient;
 
 public interface AppComponent {
@@ -26,4 +27,6 @@ public interface AppComponent {
     Repository provideRepository();
 
     ExecutorService provideExecutorService();
+
+    UseCaseFactory provideUseCaseFactory();
 }

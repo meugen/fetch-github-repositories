@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 import meugeninua.fetchgithubrepositories.BuildConfig;
-import meugeninua.fetchgithubrepositories.model.http.body.CreateAuthBody;
-import meugeninua.fetchgithubrepositories.model.http.entities.AuthEntity;
-import meugeninua.fetchgithubrepositories.model.http.entities.ReposEntity;
-import meugeninua.fetchgithubrepositories.model.http.services.GithubService;
+import meugeninua.fetchgithubrepositories.model.network.body.CreateAuthBody;
+import meugeninua.fetchgithubrepositories.model.network.entities.AuthEntity;
+import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
+import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
 import okhttp3.Credentials;
 
 public class Repository {

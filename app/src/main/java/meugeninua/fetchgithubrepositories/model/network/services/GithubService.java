@@ -1,10 +1,10 @@
-package meugeninua.fetchgithubrepositories.model.http.services;
+package meugeninua.fetchgithubrepositories.model.network.services;
 
 import java.util.List;
 
-import meugeninua.fetchgithubrepositories.model.http.body.CreateAuthBody;
-import meugeninua.fetchgithubrepositories.model.http.entities.AuthEntity;
-import meugeninua.fetchgithubrepositories.model.http.entities.ReposEntity;
+import meugeninua.fetchgithubrepositories.model.network.body.CreateAuthBody;
+import meugeninua.fetchgithubrepositories.model.network.entities.AuthEntity;
+import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface GithubService {
 
-    @POST("/authorization")
+    @POST("/authorizations")
     Call<AuthEntity> createAuthorization(
             @Body CreateAuthBody body,
             @Header("Authorization") String auth);
