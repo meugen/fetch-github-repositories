@@ -1,11 +1,15 @@
 package meugeninua.fetchgithubrepositories.model.usecases;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
 public class LiveDataTask<T> extends FutureTask<T> {
+
+    private static final String TAG = LiveDataTask.class.getSimpleName();
 
     private final MutableLiveData<Result<T>> liveData;
 
@@ -26,5 +30,6 @@ public class LiveDataTask<T> extends FutureTask<T> {
     protected void setException(final Throwable error) {
         super.setException(error);
         liveData.postValue(Result.withError(error));
+        Log.e(TAG, error.getMessage(), error);
     }
 }

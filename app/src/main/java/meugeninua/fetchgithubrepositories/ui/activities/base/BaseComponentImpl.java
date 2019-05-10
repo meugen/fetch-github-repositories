@@ -7,14 +7,18 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.gson.Gson;
-
 import java.lang.ref.WeakReference;
+import java.util.List;
 import java.util.concurrent.Executor;
 
 import meugeninua.fetchgithubrepositories.app.di.AppComponent;
-import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
+import meugeninua.fetchgithubrepositories.model.json.readers.EntityReader;
+import meugeninua.fetchgithubrepositories.model.json.writers.EntityWriter;
+import meugeninua.fetchgithubrepositories.model.network.body.CreateAuthBody;
+import meugeninua.fetchgithubrepositories.model.network.entities.AuthEntity;
+import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
 import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
+import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
 import meugeninua.fetchgithubrepositories.ui.di.ActivityComponent;
 import okhttp3.OkHttpClient;
 
@@ -53,11 +57,6 @@ public abstract class BaseComponentImpl<A extends AppCompatActivity>
     }
 
     @Override
-    public Gson provideGson() {
-        return appComponent.provideGson();
-    }
-
-    @Override
     public GithubService provideGithubService() {
         return appComponent.provideGithubService();
     }
@@ -75,5 +74,25 @@ public abstract class BaseComponentImpl<A extends AppCompatActivity>
     @Override
     public GithubRepository provideUseCaseFactory() {
         return appComponent.provideUseCaseFactory();
+    }
+
+    @Override
+    public EntityReader<AuthEntity> provideAuthEntityReader() {
+        return appComponent.provideAuthEntityReader();
+    }
+
+    @Override
+    public EntityReader<ReposEntity> provideReposEntityReader() {
+        return appComponent.provideReposEntityReader();
+    }
+
+    @Override
+    public EntityReader<List<ReposEntity>> provideReposEntitiesReader() {
+        return appComponent.provideReposEntitiesReader();
+    }
+
+    @Override
+    public EntityWriter<CreateAuthBody> provideAuthBodyWriter() {
+        return appComponent.provideAuthBodyWriter();
     }
 }

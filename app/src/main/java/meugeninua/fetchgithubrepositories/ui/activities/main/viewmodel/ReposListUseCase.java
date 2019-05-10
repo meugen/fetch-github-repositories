@@ -3,9 +3,9 @@ package meugeninua.fetchgithubrepositories.ui.activities.main.viewmodel;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
 import meugeninua.fetchgithubrepositories.model.network.entities.AuthEntity;
 import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
+import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
 
 class ReposListUseCase implements Callable<List<ReposEntity>> {
 

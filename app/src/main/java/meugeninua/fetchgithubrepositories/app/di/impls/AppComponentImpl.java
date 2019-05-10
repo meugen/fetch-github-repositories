@@ -5,32 +5,34 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import java.lang.ref.WeakReference;
-import java.util.Date;
 import java.util.concurrent.Executor;
 
-import meugeninua.fetchgithubrepositories.BuildConfig;
 import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.app.di.impls.conf.ConfigurationUtils;
-import meugeninua.fetchgithubrepositories.app.di.impls.json.DateAdapter;
+import meugeninua.fetchgithubrepositories.model.json.readers.impls.AuthEntityReader;
+import meugeninua.fetchgithubrepositories.model.json.readers.impls.EntitiesListReader;
+import meugeninua.fetchgithubrepositories.model.json.readers.impls.ReposEntityReader;
+import meugeninua.fetchgithubrepositories.model.json.writers.impls.AuthBodyWriter;
+import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
+import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
+import meugeninua.fetchgithubrepositories.model.network.services.impls.GithubServiceImpl;
 import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
 import meugeninua.fetchgithubrepositories.model.repositories.impls.GithubRepositoryImpl;
-import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
 import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AppComponentImpl implements AppComponent {
 
     private final WeakReference<Application> appRef;
     private ViewModelProvider.Factory viewModelFactory;
-    private Gson gson;
     private GithubService githubService;
     private OkHttpClient httpClient;
     private GithubRepository githubRepository;
+
+    private AuthEntityReader authEntityReader;
+    private ReposEntityReader reposEntityReader;
+    private AuthBodyWriter authBodyWriter;
+    private EntitiesListReader<ReposEntity> reposEntitiesReader;
 
     public AppComponentImpl(final Application app) {
         this.appRef = new WeakReference<>(app);
@@ -50,16 +52,6 @@ public class AppComponentImpl implements AppComponent {
     }
 
     @Override
-    public Gson provideGson() {
-        if (gson == null) {
-            gson = new GsonBuilder()
-                    .registerTypeAdapter(Date.class, new DateAdapter())
-                    .create();
-        }
-        return gson;
-    }
-
-    @Override
     public OkHttpClient provideOkHttpClient() {
         if (httpClient == null) {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
@@ -72,13 +64,43 @@ public class AppComponentImpl implements AppComponent {
     @Override
     public GithubService provideGithubService() {
         if (githubService == null) {
-            githubService = new Retrofit.Builder()
-                    .baseUrl(BuildConfig.GITHUB_API_URL)
-                    .client(provideOkHttpClient())
-                    .addConverterFactory(GsonConverterFactory.create(provideGson()))
-                    .build().create(GithubService.class);
+            githubService = new GithubServiceImpl(
+                    provideOkHttpClient(),
+                    provideAuthBodyWriter());
         }
         return githubService;
+    }
+
+    @Override
+    public AuthEntityReader provideAuthEntityReader() {
+        if (authEntityReader == null) {
+            authEntityReader = new AuthEntityReader();
+        }
+        return authEntityReader;
+    }
+
+    @Override
+    public ReposEntityReader provideReposEntityReader() {
+        if (reposEntityReader == null) {
+            reposEntityReader = new ReposEntityReader();
+        }
+        return reposEntityReader;
+    }
+
+    @Override
+    public EntitiesListReader<ReposEntity> provideReposEntitiesReader() {
+        if (reposEntitiesReader == null) {
+            reposEntitiesReader = new EntitiesListReader<>(provideReposEntityReader());
+        }
+        return reposEntitiesReader;
+    }
+
+    @Override
+    public AuthBodyWriter provideAuthBodyWriter() {
+        if (authBodyWriter == null) {
+            authBodyWriter = new AuthBodyWriter();
+        }
+        return authBodyWriter;
     }
 
     @Override
@@ -89,7 +111,10 @@ public class AppComponentImpl implements AppComponent {
     @Override
     public GithubRepository provideUseCaseFactory() {
         if (githubRepository == null) {
-            githubRepository = new GithubRepositoryImpl(provideGithubService());
+            githubRepository = new GithubRepositoryImpl(
+                    provideGithubService(),
+                    provideAuthEntityReader(),
+                    provideReposEntitiesReader());
         }
         return githubRepository;
     }

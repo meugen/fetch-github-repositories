@@ -4,12 +4,16 @@ import android.content.Context;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.gson.Gson;
-
+import java.util.List;
 import java.util.concurrent.Executor;
 
-import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
+import meugeninua.fetchgithubrepositories.model.json.readers.EntityReader;
+import meugeninua.fetchgithubrepositories.model.json.writers.EntityWriter;
+import meugeninua.fetchgithubrepositories.model.network.body.CreateAuthBody;
+import meugeninua.fetchgithubrepositories.model.network.entities.AuthEntity;
+import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
 import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
+import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
 import okhttp3.OkHttpClient;
 
 public interface AppComponent {
@@ -18,8 +22,6 @@ public interface AppComponent {
 
     ViewModelProvider.Factory provideViewModelFactory();
 
-    Gson provideGson();
-
     GithubService provideGithubService();
 
     OkHttpClient provideOkHttpClient();
@@ -27,4 +29,12 @@ public interface AppComponent {
     Executor provideExecutor();
 
     GithubRepository provideUseCaseFactory();
+
+    EntityReader<AuthEntity> provideAuthEntityReader();
+
+    EntityReader<ReposEntity> provideReposEntityReader();
+
+    EntityReader<List<ReposEntity>> provideReposEntitiesReader();
+
+    EntityWriter<CreateAuthBody> provideAuthBodyWriter();
 }

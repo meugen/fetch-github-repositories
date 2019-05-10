@@ -10,8 +10,8 @@ import java.util.concurrent.Executor;
 
 import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.app.di.Injectable;
-import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
 import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
+import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
 import meugeninua.fetchgithubrepositories.model.usecases.LiveDataTask;
 import meugeninua.fetchgithubrepositories.model.usecases.Result;
 import meugeninua.fetchgithubrepositories.ui.di.MainComponent;
