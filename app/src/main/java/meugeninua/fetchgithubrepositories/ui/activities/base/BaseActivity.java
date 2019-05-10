@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
 import meugeninua.fetchgithubrepositories.app.GithubApp;
 import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.ui.di.ActivityComponent;

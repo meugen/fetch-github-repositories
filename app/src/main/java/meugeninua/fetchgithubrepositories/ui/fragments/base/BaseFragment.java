@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+
 import meugeninua.fetchgithubrepositories.app.di.Injectable;
 import meugeninua.fetchgithubrepositories.ui.di.ActivityComponent;
 import meugeninua.fetchgithubrepositories.ui.fragments.base.binding.Binding;

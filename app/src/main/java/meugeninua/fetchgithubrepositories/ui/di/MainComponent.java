@@ -1,10 +1,11 @@
 package meugeninua.fetchgithubrepositories.ui.di;
 
+import androidx.lifecycle.LiveData;
+
 import java.util.List;
 
-import androidx.lifecycle.LiveData;
 import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
-import meugeninua.fetchgithubrepositories.model.usecases.UseCaseResult;
+import meugeninua.fetchgithubrepositories.model.usecases.Result;
 
 public interface MainComponent extends LoginComponent, ReposComponent {
 
@@ -12,6 +13,6 @@ public interface MainComponent extends LoginComponent, ReposComponent {
 
     interface GithubReposLoader {
 
-        LiveData<UseCaseResult<List<ReposEntity>>> loadGithubRepositories(String username, String password);
+        LiveData<Result<List<ReposEntity>>> loadGithubRepositories(String username, String password);
     }
 }

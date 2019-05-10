@@ -3,6 +3,7 @@ package meugeninua.fetchgithubrepositories.app.di.impls;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
 import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.app.di.Injectable;
 

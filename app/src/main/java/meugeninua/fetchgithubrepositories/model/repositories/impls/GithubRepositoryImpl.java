@@ -1,11 +1,11 @@
-package meugeninua.fetchgithubrepositories.model.factory.impls;
+package meugeninua.fetchgithubrepositories.model.repositories.impls;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import meugeninua.fetchgithubrepositories.BuildConfig;
-import meugeninua.fetchgithubrepositories.model.factory.UseCaseFactory;
+import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
 import meugeninua.fetchgithubrepositories.model.network.body.CreateAuthBody;
 import meugeninua.fetchgithubrepositories.model.network.entities.AuthEntity;
 import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
@@ -13,11 +13,11 @@ import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
 import meugeninua.fetchgithubrepositories.model.usecases.impls.CallUseCase;
 import okhttp3.Credentials;
 
-public class UseCaseFactoryImpl implements UseCaseFactory {
+public class GithubRepositoryImpl implements GithubRepository {
 
     private final GithubService service;
 
-    public UseCaseFactoryImpl(GithubService service) {
+    public GithubRepositoryImpl(GithubService service) {
         this.service = service;
     }
 

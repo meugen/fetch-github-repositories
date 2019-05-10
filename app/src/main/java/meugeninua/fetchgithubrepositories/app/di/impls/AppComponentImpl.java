@@ -1,23 +1,23 @@
 package meugeninua.fetchgithubrepositories.app.di.impls;
 
 import android.app.Application;
+import android.os.AsyncTask;
+
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Executor;
 
-import androidx.lifecycle.ViewModelProvider;
 import meugeninua.fetchgithubrepositories.BuildConfig;
 import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.app.di.impls.conf.ConfigurationUtils;
 import meugeninua.fetchgithubrepositories.app.di.impls.json.DateAdapter;
-import meugeninua.fetchgithubrepositories.model.Repository;
-import meugeninua.fetchgithubrepositories.model.factory.UseCaseFactory;
-import meugeninua.fetchgithubrepositories.model.factory.impls.UseCaseFactoryImpl;
+import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
+import meugeninua.fetchgithubrepositories.model.repositories.impls.GithubRepositoryImpl;
 import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -30,9 +30,7 @@ public class AppComponentImpl implements AppComponent {
     private Gson gson;
     private GithubService githubService;
     private OkHttpClient httpClient;
-    private Repository repository;
-    private ExecutorService executorService;
-    private UseCaseFactory useCaseFactory;
+    private GithubRepository githubRepository;
 
     public AppComponentImpl(final Application app) {
         this.appRef = new WeakReference<>(app);
@@ -84,26 +82,15 @@ public class AppComponentImpl implements AppComponent {
     }
 
     @Override
-    public Repository provideRepository() {
-        if (repository == null) {
-            repository = new Repository(provideGithubService());
-        }
-        return repository;
+    public Executor provideExecutor() {
+        return AsyncTask.THREAD_POOL_EXECUTOR;
     }
 
     @Override
-    public ExecutorService provideExecutorService() {
-        if (executorService == null) {
-            executorService = Executors.newFixedThreadPool(2);
+    public GithubRepository provideUseCaseFactory() {
+        if (githubRepository == null) {
+            githubRepository = new GithubRepositoryImpl(provideGithubService());
         }
-        return executorService;
-    }
-
-    @Override
-    public UseCaseFactory provideUseCaseFactory() {
-        if (useCaseFactory == null) {
-            useCaseFactory = new UseCaseFactoryImpl(provideGithubService());
-        }
-        return useCaseFactory;
+        return githubRepository;
     }
 }

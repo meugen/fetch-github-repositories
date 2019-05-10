@@ -3,9 +3,9 @@ package meugeninua.fetchgithubrepositories.ui.fragments.base.binding;
 import android.util.SparseArray;
 import android.view.View;
 
-import java.lang.ref.WeakReference;
-
 import androidx.annotation.Nullable;
+
+import java.lang.ref.WeakReference;
 
 public class BaseBindingImpl implements Binding {
 
@@ -25,7 +25,7 @@ public class BaseBindingImpl implements Binding {
     }
 
     @Nullable
-    public <V extends View> V getNullable(final int id) {
+    private <V extends View> V getNullable(final int id) {
         if (rootViewRef == null || childrenViewRefs == null) {
             return null;
         }

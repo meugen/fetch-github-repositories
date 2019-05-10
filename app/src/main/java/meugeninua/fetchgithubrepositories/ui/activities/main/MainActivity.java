@@ -1,17 +1,16 @@
 package meugeninua.fetchgithubrepositories.ui.activities.main;
 
 import android.os.Bundle;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.LiveData;
 import meugeninua.fetchgithubrepositories.R;
 import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.model.network.entities.ReposEntity;
-import meugeninua.fetchgithubrepositories.model.usecases.UseCaseResult;
+import meugeninua.fetchgithubrepositories.model.usecases.Result;
 import meugeninua.fetchgithubrepositories.ui.activities.base.BaseActivity;
 import meugeninua.fetchgithubrepositories.ui.di.MainComponent;
 import meugeninua.fetchgithubrepositories.ui.fragments.content.ContentFragment;
@@ -32,7 +31,7 @@ public class MainActivity extends BaseActivity<MainComponent>
         if (getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT) == null) {
             displayFragment(new LoginFragment());
         }
-        LiveData<UseCaseResult<List<ReposEntity>>> liveData = provideActivityComponent()
+        LiveData<Result<List<ReposEntity>>> liveData = provideActivityComponent()
                 .provideGithubReposProvider().getGithubRepositories();
         observeLiveData(liveData);
     }
@@ -46,18 +45,18 @@ public class MainActivity extends BaseActivity<MainComponent>
     @Override
     public void onLoginClick(final String username, final String password) {
         displayFragment(new ProgressFragment());
-        LiveData<UseCaseResult<List<ReposEntity>>> liveData = provideActivityComponent()
+        LiveData<Result<List<ReposEntity>>> liveData = provideActivityComponent()
                 .provideGithubReposLoader().loadGithubRepositories(username, password);
         observeLiveData(liveData);
     }
 
-    private void observeLiveData(final LiveData<UseCaseResult<List<ReposEntity>>> liveData) {
+    private void observeLiveData(final LiveData<Result<List<ReposEntity>>> liveData) {
         if (liveData != null) {
             liveData.observe(this, this::onReposLoaded);
         }
     }
 
-    private void onReposLoaded(final UseCaseResult<List<ReposEntity>> result) {
+    private void onReposLoaded(final Result<List<ReposEntity>> result) {
         if (result.error != null) {
             displayFragment(MessageFragment.newInstance(result.error.getMessage()));
             return;

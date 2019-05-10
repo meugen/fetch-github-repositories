@@ -2,13 +2,13 @@ package meugeninua.fetchgithubrepositories.app.di;
 
 import android.content.Context;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.google.gson.Gson;
 
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executor;
 
-import androidx.lifecycle.ViewModelProvider;
-import meugeninua.fetchgithubrepositories.model.Repository;
-import meugeninua.fetchgithubrepositories.model.factory.UseCaseFactory;
+import meugeninua.fetchgithubrepositories.model.repositories.GithubRepository;
 import meugeninua.fetchgithubrepositories.model.network.services.GithubService;
 import okhttp3.OkHttpClient;
 
@@ -24,9 +24,7 @@ public interface AppComponent {
 
     OkHttpClient provideOkHttpClient();
 
-    Repository provideRepository();
+    Executor provideExecutor();
 
-    ExecutorService provideExecutorService();
-
-    UseCaseFactory provideUseCaseFactory();
+    GithubRepository provideUseCaseFactory();
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import meugeninua.fetchgithubrepositories.R;
 import meugeninua.fetchgithubrepositories.ui.di.ActivityComponent;
 import meugeninua.fetchgithubrepositories.ui.fragments.base.BaseFragment;

@@ -7,11 +7,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import meugeninua.fetchgithubrepositories.R;
-import meugeninua.fetchgithubrepositories.app.di.AppComponent;
 import meugeninua.fetchgithubrepositories.ui.di.ActivityComponent;
 import meugeninua.fetchgithubrepositories.ui.fragments.base.BaseFragment;
-import meugeninua.fetchgithubrepositories.ui.fragments.base.binding.Binding;
 import meugeninua.fetchgithubrepositories.ui.fragments.message.binding.MessageBinding;
 import meugeninua.fetchgithubrepositories.ui.fragments.message.binding.MessageBindingImpl;
 

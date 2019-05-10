@@ -4,7 +4,7 @@ import android.view.View;
 
 public interface Binding {
 
-    Binding EMPTY = new BaseBindingImpl() {};
+    Binding EMPTY = new BaseBindingImpl();
 
     void attachView(View view);
 
